@@ -1,0 +1,15 @@
+{
+  "name": "micro-auth0",
+  "version": "0.1.0",
+  "description": "Micro Auth0 helper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mark Marijnissen",
+  "license": "MIT",
+  "dependencies": {
+    "auth0": "^2.7.0",
+    "url": "^0.11.0"
+  }
+}
