@@ -25,4 +25,7 @@ module.exports = async (req,res) => {
     };
 };
 ```
-# micro-auth0
+## changelog
+
+- 0.2.0 add async-to-gen to support node 6
+- 0.1.0 initial version
