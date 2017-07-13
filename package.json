@@ -1,19 +1,12 @@
 {
   "name": "micro-auth0",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "Micro Auth0 helper",
-  "main": "build/compat.js",
-  "scripts": {
-    "prepublish":"npm build",
-    "build":"async-to-gen index.js > build/compat.js"
-  },
+  "main": "index.js",
   "author": "Mark Marijnissen",
   "license": "MIT",
   "dependencies": {
-    "auth0": "^2.7.0",
+    "request": "^2.81.0",
     "url": "^0.11.0"
-  },
-  "devDependencies": {
-    "async-to-gen": "^1.3.3"
   }
 }
