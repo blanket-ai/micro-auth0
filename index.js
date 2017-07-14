@@ -7,13 +7,28 @@ module.exports = (req,domain) => new Promise((resolve,reject) => {
     if(req.headers.authorization && req.headers.authorization.match(/bearer /i)) {
         token = req.headers.authorization.substr(7);
     }
+    if(!token) {
+        const error = new Error("No token");
+        error.statusCode = 401;
+        reject(error);
+        return;
+    }
     request({
         url: `https://${domain}/userinfo`,
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     }, (err, res, result) => {
-        if (err || result === "Unauthorized" || res.statusCode !== 200) {
-            resolve(false);
+        if (err) {
+            err.statusCode = 500;
+            reject(err)
+        } else if(result === "Unauthorized") {
+            const error = new Error("Token invalid");
+            error.statusCode = 403;
+            reject(error);
+        } else if(res.statusCode !== 200) {
+            const error = new Error("Auth0 statusCode "+res.statusCode);
+            error.statusCode = 500;
+            reject(error);
         } else {
             resolve(JSON.parse(result));
         }

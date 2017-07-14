@@ -25,6 +25,8 @@ module.exports = async (req,res) => {
 ```
 ## changelog
 
+- 0.6.0 add mock
+- 0.5.0 throw errors
 - 0.4.0 refactor to user request library
 - 0.3.0 refactor to NOT use the Auth0 library
 - 0.2.0 add async-to-gen to support node 6
