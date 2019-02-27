@@ -39,5 +39,7 @@ module.exports = (req,domain) => new Promise((resolve,reject) => {
             }
         });
       }
-    }).catch(err => reject(err))
+    }).catch(err => {
+      reject(err)
+    })
 });
