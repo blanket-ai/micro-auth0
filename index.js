@@ -1,5 +1,6 @@
 var url = require("url");
-var request = require("request");
+var request = require('request');
+const { store, retrieve } = require('./cache')
 
 module.exports = (req,domain) => new Promise((resolve,reject) => {
     const query = url.parse(req.url || "", true).query || {};
@@ -13,24 +14,30 @@ module.exports = (req,domain) => new Promise((resolve,reject) => {
         reject(error);
         return;
     }
-    request({
-        url: `https://${domain}/userinfo`,
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-    }, (err, res, result) => {
-        if (err) {
-            err.statusCode = 500;
-            reject(err)
-        } else if(result === "Unauthorized") {
-            const error = new Error("Token invalid");
-            error.statusCode = 403;
-            reject(error);
-        } else if(res.statusCode !== 200) {
-            const error = new Error("Auth0 statusCode "+res.statusCode);
-            error.statusCode = 500;
-            reject(error);
-        } else {
-            resolve(JSON.parse(result));
-        }
-    });
+    retrieve({domain, token}).then(result => {
+      if (result) {
+        resolve(result)
+      } else {
+        request({
+            url: `https://${domain}/userinfo`,
+            method: "GET",
+            headers: { "Authorization": `Bearer ${token}` }
+        }, (err, res, result) => {
+            if (err) {
+                err.statusCode = 500;
+                reject(err)
+            } else if(result === "Unauthorized") {
+                const error = new Error("Token invalid");
+                error.statusCode = 403;
+                reject(error);
+            } else if(res.statusCode !== 200) {
+                const error = new Error("Auth0 statusCode "+res.statusCode);
+                error.statusCode = 500;
+                reject(error);
+            } else {
+                store({domain, token, result}).then(res => resolve(JSON.parse(result))).catch(err => reject(err))
+            }
+        });
+      }
+    }).catch(err => reject(err))
 });

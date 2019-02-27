@@ -1,11 +1,12 @@
 {
-  "name": "micro-auth0",
-  "version": "0.6.0",
+  "name": "@blanket-ai/micro-auth0",
+  "version": "1.0.6",
   "description": "Micro Auth0 helper",
   "main": "index.js",
   "author": "Mark Marijnissen",
   "license": "MIT",
   "dependencies": {
+    "redis": "^2.8.0",
     "request": "^2.81.0",
     "url": "^0.11.0"
   }
