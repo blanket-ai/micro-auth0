@@ -12,7 +12,7 @@ const setAsync = promisify(client.set).bind(client);
 
 module.exports = {
   store: ({result, domain, token}) => (
-    setAsync(`${domain}:${token}`, result, 'EX', process.env.AUTHENTICATION_EXPIRY_TIMOUT)
+    setAsync(`${domain}:${token}`, result, 'EX', process.env.AUTHENTICATION_EXPIRY_TIMEOUT)
   ),
   retrieve: ({domain, token}) => getAsync(`${domain}:${token}`).then(result => result && JSON.parse(result))
 }

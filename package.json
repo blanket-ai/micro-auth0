@@ -1,6 +1,6 @@
 {
   "name": "@blanket-ai/micro-auth0",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Micro Auth0 helper",
   "main": "index.js",
   "author": "Mark Marijnissen",
